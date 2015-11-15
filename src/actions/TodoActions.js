@@ -9,10 +9,10 @@ class TodoActions {
         })
     }
 
-    removeItem(index) {
+    removeItem(item) {
         AppDispatcher.handleAction({
             actionType: constants.REMOVE_ITEM,
-            data: index
+            data: item
         })
     }
 }

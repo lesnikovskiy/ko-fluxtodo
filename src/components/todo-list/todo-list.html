@@ -6,7 +6,7 @@
         </div>
         <ul data-bind="foreach: todoItems" style="padding-left: 0; list-style-type: none;">
             <li class="list-group-item" style="margin: 5px 0; border-radius: 5px;">
-                <span data-bind="click: $parent.removeItem.bind($index)" class="glyphicon glyphicon-remove" style="font-size: 20px; float: left; position: absolute; top: 12px; left: 6px; cursor: pointer; color: rgb(222, 79, 79)"></span>
+                <span data-bind="click: $parent.removeItem.bind(this)" class="glyphicon glyphicon-remove" style="font-size: 20px; float: left; position: absolute; top: 12px; left: 6px; cursor: pointer; color: rgb(222, 79, 79)"></span>
                 <span data-bind="text: $data" style="padding-left:20px; font-size:17px;"></span>
             </li>
         </ul>

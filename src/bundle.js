@@ -6220,10 +6220,10 @@ var TodoActions = (function () {
         }
     }, {
         key: "removeItem",
-        value: function removeItem(index) {
+        value: function removeItem(item) {
             _AppDispatcher2.default.handleAction({
                 actionType: constants.REMOVE_ITEM,
-                data: index
+                data: item
             });
         }
     }]);
@@ -6251,7 +6251,7 @@ _knockout2.default.components.register("todo-list", _todoList2.default);
 _knockout2.default.applyBindings();
 
 },{"./components/todo-list/todo-list":11,"knockout":5}],10:[function(require,module,exports){
-module.exports = "<div class=\"col-sm-6 col-md-offset-3\">\r\n    <div class=\"col-sm-12\">\r\n        <h3 class=\"text-center\">Todo List</h3>\r\n        <div>\r\n            <input data-bind=\"value: todoItem, event: {change: addItem}\" type=\"text\" class=\"form-control\" placeholder=\"New Item\">\r\n        </div>\r\n        <ul data-bind=\"foreach: todoItems\" style=\"padding-left: 0; list-style-type: none;\">\r\n            <li class=\"list-group-item\" style=\"margin: 5px 0; border-radius: 5px;\">\r\n                <span data-bind=\"click: $parent.removeItem.bind($index)\" class=\"glyphicon glyphicon-remove\" style=\"font-size: 20px; float: left; position: absolute; top: 12px; left: 6px; cursor: pointer; color: rgb(222, 79, 79)\"></span>\r\n                <span data-bind=\"text: $data\" style=\"padding-left:20px; font-size:17px;\"></span>\r\n            </li>\r\n        </ul>\r\n    </div>\r\n</div>";
+module.exports = "<div class=\"col-sm-6 col-md-offset-3\">\r\n    <div class=\"col-sm-12\">\r\n        <h3 class=\"text-center\">Todo List</h3>\r\n        <div>\r\n            <input data-bind=\"value: todoItem, event: {change: addItem}\" type=\"text\" class=\"form-control\" placeholder=\"New Item\">\r\n        </div>\r\n        <ul data-bind=\"foreach: todoItems\" style=\"padding-left: 0; list-style-type: none;\">\r\n            <li class=\"list-group-item\" style=\"margin: 5px 0; border-radius: 5px;\">\r\n                <span data-bind=\"click: $parent.removeItem.bind(this)\" class=\"glyphicon glyphicon-remove\" style=\"font-size: 20px; float: left; position: absolute; top: 12px; left: 6px; cursor: pointer; color: rgb(222, 79, 79)\"></span>\r\n                <span data-bind=\"text: $data\" style=\"padding-left:20px; font-size:17px;\"></span>\r\n            </li>\r\n        </ul>\r\n    </div>\r\n</div>";
 
 },{}],11:[function(require,module,exports){
 "use strict";
@@ -6305,8 +6305,8 @@ var TodoListViewModel = (function () {
         }
     }, {
         key: "removeItem",
-        value: function removeItem(index) {
-            _TodoActions2.default.removeItem(index);
+        value: function removeItem(item, event) {
+            _TodoActions2.default.removeItem(item);
         }
     }]);
 
@@ -6358,9 +6358,9 @@ var StoreRepository = (function () {
         }
     }, {
         key: "removeItem",
-        value: function removeItem(index) {
+        value: function removeItem(item) {
             var _list = this.todoList;
-            _list.splice(index, 1);
+            _list.splice(_list.indexOf(item), 1);
             localStorage.setItem(_Constants.TODO_ITEMS_KEY, JSON.stringify(_list));
         }
     }, {

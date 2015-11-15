@@ -12,9 +12,9 @@ class StoreRepository {
 		localStorage.setItem(TODO_ITEMS_KEY, JSON.stringify(_list));
     }
 
-    removeItem(index) {
+    removeItem(item) {
 		let _list = this.todoList;
-        _list.splice(index, 1);
+        _list.splice(_list.indexOf(item), 1);
 		localStorage.setItem(TODO_ITEMS_KEY, JSON.stringify(_list));
     }
 }

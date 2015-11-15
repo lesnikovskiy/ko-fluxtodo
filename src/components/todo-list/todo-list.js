@@ -20,8 +20,8 @@ class TodoListViewModel {
         this.todoItem(null);
     }
 
-    removeItem(index) {
-        todoActions.removeItem(index);
+    removeItem(item, event) {
+        todoActions.removeItem(item);
     }
 }
 
