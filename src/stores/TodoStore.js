@@ -37,7 +37,7 @@ class TodoStore extends EventEmitter {
     }
 
     getList() {
-        return StoreRepository.list;
+        return StoreRepository.todoList;
     }
 }
 

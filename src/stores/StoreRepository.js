@@ -1,22 +1,21 @@
-const key = "TODO_ITEMS_KEY";
+import {TODO_ITEMS_KEY} from "../constants/Constants";
 
-class StoreRepository {	
-    constructor() {		
-		this._list = localStorage.getItem(key) || [];
-    }
-
-    get list() {
-        return this._list;
+class StoreRepository {
+    get todoList() {
+		let storageItems = localStorage.getItem(TODO_ITEMS_KEY);
+		return storageItems ? JSON.parse(storageItems) : [];
     }
 
     addItem(item) {
-        this._list.push(item);
-		localStorage.setItem(key, this._list);
+        let _list = this.todoList;
+		_list.push(item);
+		localStorage.setItem(TODO_ITEMS_KEY, JSON.stringify(_list));
     }
 
     removeItem(index) {
-        this._list.splice(index, 1);
-		localStorage.setItem(key, this._list);
+		let _list = this.todoList;
+        _list.splice(index, 1);
+		localStorage.setItem(TODO_ITEMS_KEY, JSON.stringify(_list));
     }
 }
 

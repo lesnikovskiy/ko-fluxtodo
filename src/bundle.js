@@ -6327,6 +6327,7 @@ Object.defineProperty(exports, "__esModule", {
 var ADD_ITEM = exports.ADD_ITEM = "ADD_ITEM";
 var REMOVE_ITEM = exports.REMOVE_ITEM = "REMOVE_ITEM";
 var CHANGE_EVENT = exports.CHANGE_EVENT = "change";
+var TODO_ITEMS_KEY = exports.TODO_ITEMS_KEY = "TODO_ITEMS_KEY";
 
 },{}],13:[function(require,module,exports){
 module.exports=require(7)
@@ -6339,33 +6340,34 @@ Object.defineProperty(exports, "__esModule", {
     value: true
 });
 
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+var _Constants = require("../constants/Constants");
 
-var key = "TODO_ITEMS_KEY";
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 var StoreRepository = (function () {
     function StoreRepository() {
         _classCallCheck(this, StoreRepository);
-
-        this._list = localStorage.getItem(key) || [];
     }
 
     _createClass(StoreRepository, [{
         key: "addItem",
         value: function addItem(item) {
-            this._list.push(item);
-            localStorage.setItem(key, this._list);
+            var _list = this.todoList;
+            _list.push(item);
+            localStorage.setItem(_Constants.TODO_ITEMS_KEY, JSON.stringify(_list));
         }
     }, {
         key: "removeItem",
         value: function removeItem(index) {
-            this._list.splice(index, 1);
-            localStorage.setItem(key, this._list);
+            var _list = this.todoList;
+            _list.splice(index, 1);
+            localStorage.setItem(_Constants.TODO_ITEMS_KEY, JSON.stringify(_list));
         }
     }, {
-        key: "list",
+        key: "todoList",
         get: function get() {
-            return this._list;
+            var storageItems = localStorage.getItem(_Constants.TODO_ITEMS_KEY);
+            return storageItems ? JSON.parse(storageItems) : [];
         }
     }]);
 
@@ -6374,7 +6376,7 @@ var StoreRepository = (function () {
 
 exports.default = new StoreRepository();
 
-},{}],15:[function(require,module,exports){
+},{"../constants/Constants":12}],15:[function(require,module,exports){
 "use strict";
 
 var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
@@ -6451,7 +6453,7 @@ var TodoStore = (function (_EventEmitter) {
     }, {
         key: "getList",
         value: function getList() {
-            return _StoreRepository2.default.list;
+            return _StoreRepository2.default.todoList;
         }
     }]);
 
