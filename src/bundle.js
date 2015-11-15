@@ -6341,22 +6341,26 @@ Object.defineProperty(exports, "__esModule", {
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
+var key = "TODO_ITEMS_KEY";
+
 var StoreRepository = (function () {
     function StoreRepository() {
         _classCallCheck(this, StoreRepository);
 
-        this._list = [];
+        this._list = localStorage.getItem(key) || [];
     }
 
     _createClass(StoreRepository, [{
         key: "addItem",
         value: function addItem(item) {
             this._list.push(item);
+            localStorage.setItem(key, this._list);
         }
     }, {
         key: "removeItem",
         value: function removeItem(index) {
             this._list.splice(index, 1);
+            localStorage.setItem(key, this._list);
         }
     }, {
         key: "list",
