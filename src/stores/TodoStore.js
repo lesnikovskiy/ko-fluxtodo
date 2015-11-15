@@ -12,11 +12,11 @@ class TodoStore extends EventEmitter {
             switch (action.actionType) {
                 case constants.ADD_ITEM:
                     StoreRepository.addItem(action.data);
-                    todoStore.emitChange();
+                    this.emitChange();
                     break;
                 case constants.REMOVE_ITEM:
                     StoreRepository.removeItem(action.data);
-                    todoStore.emitChange();
+                    this.emitChange();
                     break;
                 default:
                     break;
@@ -41,6 +41,4 @@ class TodoStore extends EventEmitter {
     }
 }
 
-const todoStore = new TodoStore();
-
-export default todoStore;
+export default new TodoStore();

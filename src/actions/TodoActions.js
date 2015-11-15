@@ -17,6 +17,4 @@ class TodoActions {
     }
 }
 
-const todoActions = new TodoActions();
-
-export default todoActions;
+export default new TodoActions();

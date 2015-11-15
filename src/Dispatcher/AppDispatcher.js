@@ -1,6 +1,6 @@
 import { Dispatcher } from "flux";
 
-class DispatcherClass extends Dispatcher {
+class AppDispatcher extends Dispatcher {
     handleAction(action) {
         this.dispatch({
             source: 'VIEW_ACTION',
@@ -9,6 +9,4 @@ class DispatcherClass extends Dispatcher {
     }
 }
 
-const AppDispatcher = new DispatcherClass();
-
-export default AppDispatcher;
+export default new AppDispatcher();

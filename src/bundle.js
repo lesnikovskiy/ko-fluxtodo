@@ -6158,16 +6158,16 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-var DispatcherClass = (function (_Dispatcher) {
-    _inherits(DispatcherClass, _Dispatcher);
+var AppDispatcher = (function (_Dispatcher) {
+    _inherits(AppDispatcher, _Dispatcher);
 
-    function DispatcherClass() {
-        _classCallCheck(this, DispatcherClass);
+    function AppDispatcher() {
+        _classCallCheck(this, AppDispatcher);
 
-        return _possibleConstructorReturn(this, Object.getPrototypeOf(DispatcherClass).apply(this, arguments));
+        return _possibleConstructorReturn(this, Object.getPrototypeOf(AppDispatcher).apply(this, arguments));
     }
 
-    _createClass(DispatcherClass, [{
+    _createClass(AppDispatcher, [{
         key: "handleAction",
         value: function handleAction(action) {
             this.dispatch({
@@ -6177,12 +6177,10 @@ var DispatcherClass = (function (_Dispatcher) {
         }
     }]);
 
-    return DispatcherClass;
+    return AppDispatcher;
 })(_flux.Dispatcher);
 
-var AppDispatcher = new DispatcherClass();
-
-exports.default = AppDispatcher;
+exports.default = new AppDispatcher();
 
 },{"flux":3}],8:[function(require,module,exports){
 "use strict";
@@ -6233,9 +6231,7 @@ var TodoActions = (function () {
     return TodoActions;
 })();
 
-var todoActions = new TodoActions();
-
-exports.default = todoActions;
+exports.default = new TodoActions();
 
 },{"../constants/Constants":12,"../dispatcher/AppDispatcher":13}],9:[function(require,module,exports){
 "use strict";
@@ -6420,11 +6416,11 @@ var TodoStore = (function (_EventEmitter) {
             switch (action.actionType) {
                 case constants.ADD_ITEM:
                     _StoreRepository2.default.addItem(action.data);
-                    todoStore.emitChange();
+                    _this.emitChange();
                     break;
                 case constants.REMOVE_ITEM:
                     _StoreRepository2.default.removeItem(action.data);
-                    todoStore.emitChange();
+                    _this.emitChange();
                     break;
                 default:
                     break;
@@ -6458,8 +6454,6 @@ var TodoStore = (function (_EventEmitter) {
     return TodoStore;
 })(_events.EventEmitter);
 
-var todoStore = new TodoStore();
-
-exports.default = todoStore;
+exports.default = new TodoStore();
 
 },{"../Dispatcher/AppDispatcher":7,"../constants/Constants":12,"./StoreRepository":14,"events":1}]},{},[9])
