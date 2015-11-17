@@ -6233,7 +6233,7 @@ var TodoActions = (function () {
 
 exports.default = new TodoActions();
 
-},{"../constants/Constants":12,"../dispatcher/AppDispatcher":13}],9:[function(require,module,exports){
+},{"../constants/Constants":14,"../dispatcher/AppDispatcher":15}],9:[function(require,module,exports){
 "use strict";
 
 var _knockout = require("knockout");
@@ -6244,16 +6244,73 @@ var _todoList = require("./components/todo-list/todo-list");
 
 var _todoList2 = _interopRequireDefault(_todoList);
 
+var _listSummary = require("./components/list-summary/list-summary");
+
+var _listSummary2 = _interopRequireDefault(_listSummary);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 _knockout2.default.components.register("todo-list", _todoList2.default);
+_knockout2.default.components.register("list-summary", _listSummary2.default);
 
 _knockout2.default.applyBindings();
 
-},{"./components/todo-list/todo-list":11,"knockout":5}],10:[function(require,module,exports){
-module.exports = "<div class=\"col-sm-6 col-md-offset-3\">\r\n    <div class=\"col-sm-12\">\r\n        <h3 class=\"text-center\">Todo List</h3>\r\n        <div>\r\n            <input data-bind=\"value: todoItem, event: {change: addItem}\" type=\"text\" class=\"form-control\" placeholder=\"New Item\">\r\n        </div>\r\n        <ul data-bind=\"foreach: todoItems\" style=\"padding-left: 0; list-style-type: none;\">\r\n            <li class=\"list-group-item\" style=\"margin: 5px 0; border-radius: 5px;\">\r\n                <span data-bind=\"click: $parent.removeItem.bind(this)\" class=\"glyphicon glyphicon-remove\" style=\"font-size: 20px; float: left; position: absolute; top: 12px; left: 6px; cursor: pointer; color: rgb(222, 79, 79)\"></span>\r\n                <span data-bind=\"text: $data\" style=\"padding-left:20px; font-size:17px;\"></span>\r\n            </li>\r\n        </ul>\r\n    </div>\r\n</div>";
+},{"./components/list-summary/list-summary":11,"./components/todo-list/todo-list":13,"knockout":5}],10:[function(require,module,exports){
+module.exports = "<div class=\"col-sm-6 col-md-offset-3\">\r\n    <div class=\"col-sm-12\">\r\n        <h3 class=\"text-center\">List Summary</h3>\r\n        <ul data-bind=\"foreach: todoItems\" style=\"padding-left: 0; list-style-type: none;\">\r\n            <li data-bind=\"text: $data\" class=\"list-group-item\" style=\"margin: 5px 0; border-radius: 5px;\"></li>\r\n        </ul>\r\n    </div>\r\n</div>";
 
 },{}],11:[function(require,module,exports){
+"use strict";
+
+var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+
+Object.defineProperty(exports, "__esModule", {
+	value: true
+});
+
+var _knockout = require("knockout");
+
+var _knockout2 = _interopRequireDefault(_knockout);
+
+var _listSummary = require("./list-summary.html");
+
+var _listSummary2 = _interopRequireDefault(_listSummary);
+
+var _todoStore = require("../../stores/todoStore");
+
+var _todoStore2 = _interopRequireDefault(_todoStore);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+var ListSummaryViewModel = (function () {
+	function ListSummaryViewModel() {
+		_classCallCheck(this, ListSummaryViewModel);
+
+		this.todoItems = _knockout2.default.observableArray(_todoStore2.default.getList());
+
+		_todoStore2.default.addChangeListener(this.onChange.bind(this));
+	}
+
+	_createClass(ListSummaryViewModel, [{
+		key: "onChange",
+		value: function onChange() {
+			this.todoItems(_todoStore2.default.getList());
+		}
+	}]);
+
+	return ListSummaryViewModel;
+})();
+
+exports.default = {
+	viewModel: ListSummaryViewModel,
+	template: _listSummary2.default
+};
+
+},{"../../stores/todoStore":18,"./list-summary.html":10,"knockout":5}],12:[function(require,module,exports){
+module.exports = "<div class=\"col-sm-6 col-md-offset-3\">\r\n    <div class=\"col-sm-12\">\r\n        <h3 class=\"text-center\">Todo List</h3>\r\n        <div>\r\n            <input data-bind=\"value: todoItem, event: {change: addItem}\" type=\"text\" class=\"form-control\" placeholder=\"New Item\">\r\n        </div>\r\n        <ul data-bind=\"foreach: todoItems\" style=\"padding-left: 0; list-style-type: none;\">\r\n            <li class=\"list-group-item\" style=\"margin: 5px 0; border-radius: 5px;\">\r\n                <span data-bind=\"click: $parent.removeItem.bind(this)\" class=\"glyphicon glyphicon-remove\" style=\"font-size: 20px; float: left; position: absolute; top: 12px; left: 6px; cursor: pointer; color: rgb(222, 79, 79)\"></span>\r\n                <span data-bind=\"text: $data\" style=\"padding-left:20px; font-size:17px;\"></span>\r\n            </li>\r\n        </ul>\r\n    </div>\r\n</div>";
+
+},{}],13:[function(require,module,exports){
 "use strict";
 
 var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
@@ -6318,7 +6375,7 @@ exports.default = {
     template: _todoList2.default
 };
 
-},{"../../actions/TodoActions":8,"../../stores/TodoStore":15,"./todo-list.html":10,"knockout":5}],12:[function(require,module,exports){
+},{"../../actions/TodoActions":8,"../../stores/TodoStore":17,"./todo-list.html":12,"knockout":5}],14:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -6329,9 +6386,9 @@ var REMOVE_ITEM = exports.REMOVE_ITEM = "REMOVE_ITEM";
 var CHANGE_EVENT = exports.CHANGE_EVENT = "change";
 var TODO_ITEMS_KEY = exports.TODO_ITEMS_KEY = "TODO_ITEMS_KEY";
 
-},{}],13:[function(require,module,exports){
+},{}],15:[function(require,module,exports){
 module.exports=require(7)
-},{"flux":3}],14:[function(require,module,exports){
+},{"flux":3}],16:[function(require,module,exports){
 "use strict";
 
 var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
@@ -6376,7 +6433,7 @@ var StoreRepository = (function () {
 
 exports.default = new StoreRepository();
 
-},{"../constants/Constants":12}],15:[function(require,module,exports){
+},{"../constants/Constants":14}],17:[function(require,module,exports){
 "use strict";
 
 var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
@@ -6418,6 +6475,7 @@ var TodoStore = (function (_EventEmitter) {
         var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(TodoStore).call(this));
 
         _AppDispatcher2.default.register(function (payload) {
+            debugger;
             var action = payload.action;
             switch (action.actionType) {
                 case constants.ADD_ITEM:
@@ -6438,11 +6496,13 @@ var TodoStore = (function (_EventEmitter) {
     _createClass(TodoStore, [{
         key: "emitChange",
         value: function emitChange() {
+            debugger;
             this.emit(constants.CHANGE_EVENT);
         }
     }, {
         key: "addChangeListener",
         value: function addChangeListener(callback) {
+            debugger;
             this.on(constants.CHANGE_EVENT, callback);
         }
     }, {
@@ -6462,4 +6522,93 @@ var TodoStore = (function (_EventEmitter) {
 
 exports.default = new TodoStore();
 
-},{"../Dispatcher/AppDispatcher":7,"../constants/Constants":12,"./StoreRepository":14,"events":1}]},{},[9])
+},{"../Dispatcher/AppDispatcher":7,"../constants/Constants":14,"./StoreRepository":16,"events":1}],18:[function(require,module,exports){
+"use strict";
+
+var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _AppDispatcher = require("../Dispatcher/AppDispatcher");
+
+var _AppDispatcher2 = _interopRequireDefault(_AppDispatcher);
+
+var _StoreRepository = require("./StoreRepository");
+
+var _StoreRepository2 = _interopRequireDefault(_StoreRepository);
+
+var _Constants = require("../constants/Constants");
+
+var constants = _interopRequireWildcard(_Constants);
+
+var _events = require("events");
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var TodoStore = (function (_EventEmitter) {
+    _inherits(TodoStore, _EventEmitter);
+
+    function TodoStore() {
+        _classCallCheck(this, TodoStore);
+
+        var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(TodoStore).call(this));
+
+        _AppDispatcher2.default.register(function (payload) {
+            debugger;
+            var action = payload.action;
+            switch (action.actionType) {
+                case constants.ADD_ITEM:
+                    _StoreRepository2.default.addItem(action.data);
+                    _this.emitChange();
+                    break;
+                case constants.REMOVE_ITEM:
+                    _StoreRepository2.default.removeItem(action.data);
+                    _this.emitChange();
+                    break;
+                default:
+                    break;
+            }
+        });
+        return _this;
+    }
+
+    _createClass(TodoStore, [{
+        key: "emitChange",
+        value: function emitChange() {
+            debugger;
+            this.emit(constants.CHANGE_EVENT);
+        }
+    }, {
+        key: "addChangeListener",
+        value: function addChangeListener(callback) {
+            debugger;
+            this.on(constants.CHANGE_EVENT, callback);
+        }
+    }, {
+        key: "removeChangeListener",
+        value: function removeChangeListener(callback) {
+            this.removeChangeListener(constants.CHANGE_EVENT, callback);
+        }
+    }, {
+        key: "getList",
+        value: function getList() {
+            return _StoreRepository2.default.todoList;
+        }
+    }]);
+
+    return TodoStore;
+})(_events.EventEmitter);
+
+exports.default = new TodoStore();
+
+},{"../Dispatcher/AppDispatcher":7,"../constants/Constants":14,"./StoreRepository":16,"events":1}]},{},[9])
