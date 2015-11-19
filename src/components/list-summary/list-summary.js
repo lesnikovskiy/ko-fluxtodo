@@ -6,7 +6,7 @@ class ListSummaryViewModel {
 	constructor() {
 		this.todoItems = ko.observableArray(todoStore.getList());
 		
-		todoStore.addChangeListener(this.onChange.bind(this));
+		//todoStore.addChangeListener(this.onChange.bind(this));
 	}
 	
 	onChange() {
