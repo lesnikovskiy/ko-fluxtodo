@@ -9,4 +9,6 @@ class AppDispatcher extends Dispatcher {
     }
 }
 
-export default new AppDispatcher();
+const appDispatcher = new AppDispatcher()
+
+export default appDispatcher;

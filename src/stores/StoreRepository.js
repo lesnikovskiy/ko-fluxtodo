@@ -19,4 +19,6 @@ class StoreRepository {
     }
 }
 
-export default new StoreRepository();
+const storeRepository = new StoreRepository();
+
+export default storeRepository;

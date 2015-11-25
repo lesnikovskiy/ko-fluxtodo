@@ -4,8 +4,8 @@ import * as constants from "../constants/Constants";
 import { EventEmitter } from "events";
 
 class TodoStore extends EventEmitter {
-    constructor() {
-        super();
+    constructor(...args) {
+        super(...args);
 
         AppDispatcher.register((payload) => {
             var action = payload.action;
@@ -41,4 +41,6 @@ class TodoStore extends EventEmitter {
     }
 }
 
-export default new TodoStore();
+const todoStore = new TodoStore();
+
+export default todoStore;

@@ -23,7 +23,7 @@ gulp.task("build", function() {
 });
 
 gulp.task("watch", function() {
-	var watcher = gulp.watch("./src/**/*.js", ["build"]);
+	var watcher = gulp.watch(["./src/**/*.js", "./src/components/**/*.html"], ["build"]);
 	watcher.on("change", function (event) {
 		console.log("File " + event.path + " was " + event.type + ", running tasks ...");
 	});
