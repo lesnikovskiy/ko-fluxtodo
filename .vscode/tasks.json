@@ -1,0 +1,32 @@
+{
+    "version": "0.1.0",
+    "command": "gulp",
+    "isShellCommand": true,
+    "args": [
+        "--no-color"
+    ],
+    "tasks": [
+        {
+            "taskName": "build",
+            "args": [],
+            "isBuildCommand": true,
+            "isWatching": false,
+            "showOutput": "always",
+            "problemMatcher": [
+                "$jshint"
+            ]
+        },
+        {
+            "taskName": "server",
+            "isWatching": false,
+            "isBuildCommand": false,
+            "showOutput": "always"
+        },
+        {
+            "taskName": "watch",
+            "isWatching": true,
+            "isBuildCommand": true,
+            "showOutput": "always"
+        }
+    ]
+}
